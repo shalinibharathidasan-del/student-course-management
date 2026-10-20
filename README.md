@@ -1,16 +1,94 @@
-# React + Vite
+# Student Course Management (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+MMCA314D – Web Development Using Full Stack Open — **Assignment 1, Question 1**
 
-Currently, two official plugins are available:
+A frontend app built with React to manage students and the courses they are enrolled in.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How to run
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Open http://localhost:5173 in the browser.
 
-## Expanding the Oxlint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- Home page with student and course counts
+- Student list with search by name
+- Add a student (validated form)
+- View student details
+- Delete a student
+- Course list with enrolled student count
+- Data saved in the browser (localStorage)
+- Responsive layout (Bootstrap)
+
+## Project structure
+
+```
+student-course-management/
+├── index.html                 HTML page that loads the React app
+├── package.json               Project info, scripts and dependencies
+├── vite.config.js             Vite build tool config
+├── public/                    Static files (favicon)
+└── src/
+    ├── main.jsx               Entry point: BrowserRouter + StudentProvider + Bootstrap
+    ├── App.jsx                Navbar and all routes
+    ├── App.css                Custom styles
+    ├── context/
+    │   └── StudentContext.jsx Shared data (Context API) + useState/useEffect
+    ├── data/
+    │   └── initialData.js     Course list and sample students
+    ├── components/            Reusable components
+    │   ├── Navbar.jsx
+    │   ├── StudentCard.jsx
+    │   ├── CourseCard.jsx
+    │   └── StudentForm.jsx
+    └── pages/                 One component per route
+        ├── Home.jsx
+        ├── Students.jsx
+        ├── StudentDetails.jsx
+        ├── AddStudent.jsx
+        └── Courses.jsx
+```
+
+## Routes
+
+| Path            | Page           |
+|-----------------|----------------|
+| `/`             | Home           |
+| `/students`     | Students       |
+| `/students/:id` | StudentDetails |
+| `/add`          | AddStudent     |
+| `/courses`      | Courses        |
+
+## Where each concept is used
+
+| Concept | Where |
+|---|---|
+| Reusable components | `StudentCard`, `CourseCard`, `StudentForm`, `Navbar` |
+| Props | `StudentCard` gets `student`, `courseName`, `onDelete`; `CourseCard` gets `course`, `enrolled`; `StudentForm` gets `courses`, `onSubmit` |
+| State (`useState`) | Form fields and errors in `StudentForm`, search text in `Students`, student list in `StudentContext` |
+| `useEffect` | `StudentContext` saves students to localStorage whenever the list changes |
+| Forms and events | `StudentForm`: `onChange`, `onSubmit`, `preventDefault`, validation; `onClick` on Delete |
+| Lists and keys | `students.map(...)` with `key={student.id}`, `courses.map(...)` with `key={course.id}` |
+| React Router | `BrowserRouter`, `Routes`, `Route`, `NavLink`, `Link`, `useParams`, `useNavigate` |
+| Context API | `StudentContext` + `useStudents()` hook used by every page |
+| CSS / Bootstrap | Bootstrap grid (`row`, `col-sm-6 col-lg-4`), collapsible navbar, cards, forms; `App.css` |
+
+## Commit history
+
+Each feature was committed separately (`git log --oneline`):
+
+1. Initial commit: Vite React project scaffold with React Router and Bootstrap
+2. Add React Router, Bootstrap navbar and Home page
+3. Add StudentContext (Context API) with useState/useEffect and localStorage
+4. Add Students page with reusable StudentCard, list keys and search
+5. Add Add Student page with controlled form, validation and event handling
+6. Add Student Details (useParams) and Courses pages with CourseCard
+7. Add README with project structure and concept mapping
+
+## Tech used
+
+React 19, Vite, React Router, Bootstrap 5
