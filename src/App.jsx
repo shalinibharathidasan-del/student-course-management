@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Students from './pages/Students'
+import AddStudent from './pages/AddStudent'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/students" element={<Students />} />
+          <Route path="/add" element={<AddStudent />} />
           <Route path="*" element={<h3>Page not found</h3>} />
         </Routes>
       </main>
